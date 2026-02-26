@@ -44,19 +44,44 @@ const ImageWithFallback: React.FC<{
 }> = ({ src, alt, className = "", fallbackText, fallbackBg = "bg-neutral-700" }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (retryCount > 0 && retryCount < 3 && imgRef.current) {
+      setHasError(false);
+      setIsLoading(true);
+      imgRef.current.src = `${src}?retry=${retryCount}`;
+    }
+  }, [retryCount, src]);
+
+  const handleError = () => {
+    if (retryCount < 2) {
+      setTimeout(() => {
+        setRetryCount(prev => prev + 1);
+      }, 500 * (retryCount + 1));
+    } else {
+      setHasError(true);
+      setIsLoading(false);
+    }
+  };
+
+  const handleLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+  };
 
   return (
     <>
       {!hasError ? (
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
           className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-          onError={() => {
-            setHasError(true);
-            setIsLoading(false);
-          }}
-          onLoad={() => setIsLoading(false)}
+          onError={handleError}
+          onLoad={handleLoad}
+          loading="lazy"
         />
       ) : (
         <div className={`${className} ${fallbackBg} flex items-center justify-center text-white font-bold text-xs`}>
