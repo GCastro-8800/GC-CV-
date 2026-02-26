@@ -246,7 +246,7 @@ const App: React.FC = () => {
       role: "Assistant Manager",
       company: "Zelkro S.A.",
       location: "Guayaquil, Ecuador",
-      logoUrl: "/zelkro.png",
+      logoUrl: "/Zelkro_Logotipo_(4).ai.png.png",
       description: "Led digital transformation in pharmaceutical supply chains, increasing supplier engagement through targeted multi-channel digital campaigns and automated sales tracking."
     },
     {
@@ -254,8 +254,8 @@ const App: React.FC = () => {
       role: "Founder",
       company: "MeddiConnect",
       location: "Guayaquil, Ecuador",
-      logoUrl: "/meddiconnect.png",
-      logoClassName: "w-6 h-6",
+      logoUrl: "/MeddiConnect_Logo_Original.png",
+      logoClassName: "w-8 h-8",
       description: "Successfully built and validated a telehealth SaaS platform, managing the full product lifecycle from market research to MVP launch and healthcare provider pilot testing."
     },
     {
@@ -263,7 +263,7 @@ const App: React.FC = () => {
       role: "E-Commerce Consultant",
       company: "Loly's Brazilian Shoes",
       location: "Guayaquil, Ecuador",
-      logoUrl: "/lolys.png",
+      logoUrl: "/Lolys_Logo_(1).png.png",
       description: "Engineered a rapid Shopify deployment and customer acquisition strategy, resulting in a 30% increase in monthly online sales via optimized ad spend and CRM automation."
     },
     {
@@ -449,7 +449,7 @@ const App: React.FC = () => {
             <div className="flex flex-wrap gap-4">
                {/* Grok */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Grok">
-                  <ImageWithFallback src="/grok.png" alt="Grok" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="GK" />
+                  <ImageWithFallback src="/Grok_logo.png" alt="Grok" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-2" fallbackText="GK" />
                </div>
                {/* GitHub */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="GitHub">
@@ -493,7 +493,7 @@ const App: React.FC = () => {
                </div>
                {/* Lovable */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Lovable">
-                  <ImageWithFallback src="/lovable.jpg" alt="Lovable" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="L" />
+                  <ImageWithFallback src="/lovable_logo.jpg" alt="Lovable" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="L" />
                </div>
             </div>
           </div>
