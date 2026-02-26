@@ -1,0 +1,7 @@
+{
+  "name": "Remix: Gabriel Castro | Portfolio",
+  "description": "Portfolio of Gabriel Castro, Digital Business \u0026 Innovation Master\u0027s candidate at IE Business School, Founder, and Growth Strategist.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
