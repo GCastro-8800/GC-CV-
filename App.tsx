@@ -599,6 +599,115 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Music & Tech Section */}
+      <section className="mb-32">
+        <SectionHeader title="Music & Technology" description="Where art meets innovation - my favorite song powered by the tools that make it possible" />
+
+        <div className="mt-12 relative">
+          {/* Main Hero Card - Cat Stevens */}
+          <div className="relative w-full max-w-4xl mx-auto bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 rounded-3xl overflow-hidden border border-neutral-700 shadow-2xl">
+            {/* Background Image with Overlay */}
+            <div className="relative h-96 md:h-[500px] overflow-hidden">
+              <ImageWithFallback
+                src="/cat_stevens.jpg"
+                alt="Cat Stevens"
+                className="w-full h-full object-cover opacity-90"
+                fallbackText="CS"
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                <div className="max-w-2xl">
+                  <div className="inline-block px-3 py-1 bg-green-500/20 backdrop-blur-sm border border-green-500/30 rounded-full mb-4">
+                    <span className="text-green-400 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
+                      <Music className="w-3 h-3" />
+                      Now Playing
+                    </span>
+                  </div>
+                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
+                    Father and Son
+                  </h3>
+                  <p className="text-xl text-neutral-300 mb-2">Cat Stevens</p>
+                  <p className="text-sm text-neutral-400 mb-6">Tea for the Tillerman • 1970</p>
+
+                  <a
+                    href="https://youtu.be/P6zaCV4niKk?si=Wzs8riarxwHPP3Ja"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-all group"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-red-600">
+                      <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                    </svg>
+                    Watch on YouTube
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tech Stack Logos - Floating Below */}
+          <div className="mt-8 flex justify-center">
+            <div className="inline-flex items-center gap-3 bg-neutral-900/80 backdrop-blur-xl border border-neutral-800 rounded-2xl px-6 py-4 shadow-xl">
+              <span className="text-xs text-neutral-500 uppercase tracking-wider font-semibold mr-2">Built with</span>
+
+              {/* Cursor */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Cursor">
+                <ImageWithFallback src="/cursor_logo.png" alt="Cursor" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="C" />
+              </div>
+
+              {/* GitHub */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="GitHub">
+                <ImageWithFallback src="/Github_logo.png" alt="GitHub" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="GH" />
+              </div>
+
+              {/* Gemini */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Gemini">
+                <ImageWithFallback src="/gemini_logo.png" alt="Gemini" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="G" />
+              </div>
+
+              {/* Notion */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Notion">
+                <ImageWithFallback src="/notion_logo.png" alt="Notion" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="N" />
+              </div>
+
+              {/* Supabase */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Supabase">
+                <ImageWithFallback src="/supabase_logo.png" alt="Supabase" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="S" />
+              </div>
+
+              {/* Shopify */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Shopify">
+                <ImageWithFallback src="/shopify_logo.webp" alt="Shopify" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="S" />
+              </div>
+
+              {/* NotebookLM */}
+              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="NotebookLM">
+                <ImageWithFallback src="/notebooklm.jpg" alt="NotebookLM" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1" fallbackText="NB" />
+              </div>
+            </div>
+          </div>
+
+          {/* Optional: Audio Wave Decoration */}
+          <div className="mt-8 flex justify-center gap-1 opacity-30">
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={i}
+                className="w-1 bg-neutral-700 rounded-full"
+                style={{
+                  height: `${Math.random() * 40 + 10}px`,
+                  animation: `pulse ${Math.random() * 2 + 1}s ease-in-out infinite`,
+                  animationDelay: `${Math.random() * 2}s`
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="mb-32">
         <SectionHeader title="Contact" description="I'm always open to discussing new ventures, digital strategy, or growth opportunities." />
