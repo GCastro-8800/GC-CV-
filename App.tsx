@@ -35,66 +35,6 @@ const SectionHeader: React.FC<{ title: string; description?: string }> = ({ titl
   </div>
 );
 
-const ImageWithFallback: React.FC<{
-  src: string;
-  alt: string;
-  className?: string;
-  fallbackText?: string;
-  fallbackBg?: string;
-}> = ({ src, alt, className = "", fallbackText, fallbackBg = "bg-neutral-700" }) => {
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [retryCount, setRetryCount] = useState(0);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (retryCount > 0 && retryCount < 3 && imgRef.current) {
-      setHasError(false);
-      setIsLoading(true);
-      imgRef.current.src = `${src}?retry=${retryCount}`;
-    }
-  }, [retryCount, src]);
-
-  const handleError = () => {
-    if (retryCount < 2) {
-      setTimeout(() => {
-        setRetryCount(prev => prev + 1);
-      }, 500 * (retryCount + 1));
-    } else {
-      setHasError(true);
-      setIsLoading(false);
-    }
-  };
-
-  const handleLoad = () => {
-    setIsLoading(false);
-    setHasError(false);
-  };
-
-  return (
-    <>
-      {!hasError ? (
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-          onError={handleError}
-          onLoad={handleLoad}
-          loading="lazy"
-        />
-      ) : (
-        <div className={`${className} ${fallbackBg} flex items-center justify-center text-white font-bold text-xs`}>
-          {fallbackText || alt.charAt(0).toUpperCase()}
-        </div>
-      )}
-      {isLoading && !hasError && (
-        <div className={`${className} ${fallbackBg} animate-pulse`} />
-      )}
-    </>
-  );
-};
-
 /**
  * Bebloo Logo Component
  * High-fidelity SVG reconstruction of the provided branding.
@@ -136,7 +76,7 @@ const ExperienceItem: React.FC<{ item: Experience & { location?: string; isBeblo
     <div className="flex-grow">
       <div className="flex items-center gap-2 mb-2">
         <h3 className="text-lg font-medium">
-          {item.role} <span className="text-neutral-500">at</span>
+          {item.role} <span className="text-neutral-500">at</span> 
         </h3>
         <div className="flex items-center gap-2">
           {item.isBebloo ? (
@@ -144,15 +84,11 @@ const ExperienceItem: React.FC<{ item: Experience & { location?: string; isBeblo
                <BeblooLogo className="w-6 h-6" hideText={true} />
             </div>
           ) : item.logoUrl ? (
-            <div className={`rounded flex items-center justify-center bg-white ${item.logoClassName || "w-6 h-6 p-0.5"}`}>
-              <ImageWithFallback
-                src={item.logoUrl}
-                alt={item.company}
-                className="w-full h-full object-contain"
-                fallbackText={item.company.charAt(0)}
-                fallbackBg="bg-neutral-700"
-              />
-            </div>
+            <img 
+              src={item.logoUrl} 
+              alt={item.company} 
+              className={`rounded object-contain ${item.logoClassName || "w-6 h-6 bg-white p-0.5"}`} 
+            />
           ) : (
              <div className="w-6 h-6 rounded bg-neutral-700 flex items-center justify-center text-[8px] font-bold">
                {item.company.charAt(0)}
@@ -246,7 +182,7 @@ const App: React.FC = () => {
       role: "Assistant Manager",
       company: "Zelkro S.A.",
       location: "Guayaquil, Ecuador",
-      logoUrl: "/Zelkro_Logotipo_(4).ai.png.png",
+      logoUrl: "/zelkro.png",
       description: "Led digital transformation in pharmaceutical supply chains, increasing supplier engagement through targeted multi-channel digital campaigns and automated sales tracking."
     },
     {
@@ -254,8 +190,8 @@ const App: React.FC = () => {
       role: "Founder",
       company: "MeddiConnect",
       location: "Guayaquil, Ecuador",
-      logoUrl: "/MeddiConnect_Logo_Original.png",
-      logoClassName: "w-8 h-8",
+      logoUrl: "/meddiconnect.png",
+      logoClassName: "w-6 h-6",
       description: "Successfully built and validated a telehealth SaaS platform, managing the full product lifecycle from market research to MVP launch and healthcare provider pilot testing."
     },
     {
@@ -263,7 +199,7 @@ const App: React.FC = () => {
       role: "E-Commerce Consultant",
       company: "Loly's Brazilian Shoes",
       location: "Guayaquil, Ecuador",
-      logoUrl: "/Lolys_Logo_(1).png.png",
+      logoUrl: "/lolys.png",
       description: "Engineered a rapid Shopify deployment and customer acquisition strategy, resulting in a 30% increase in monthly online sales via optimized ad spend and CRM automation."
     },
     {
@@ -298,12 +234,10 @@ const App: React.FC = () => {
       {/* Hero Section */}
       <header className="mb-24">
         <div className="relative inline-block mb-8">
-          <ImageWithFallback
-            src="/foto-cv.png"
-            alt="Gabriel Castro"
+          <img 
+            src="/foto cv.png" 
+            alt="Gabriel Castro" 
             className="w-24 h-24 rounded-3xl object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
-            fallbackText="GC"
-            fallbackBg="bg-neutral-800"
           />
           <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-4 border-[#0a0a0a]" />
         </div>
@@ -449,39 +383,39 @@ const App: React.FC = () => {
             <div className="flex flex-wrap gap-4">
                {/* Grok */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Grok">
-                  <ImageWithFallback src="/Grok_logo.png" alt="Grok" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-2" fallbackText="GK" />
+                  <img src="/grok.png" alt="Grok" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* GitHub */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="GitHub">
-                  <ImageWithFallback src="/github.png" alt="GitHub" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="GH" />
+                  <img src="/github.png" alt="GitHub" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Notion */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Notion">
-                  <ImageWithFallback src="/notion.png" alt="Notion" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="N" />
+                  <img src="/notion.png" alt="Notion" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Perplexity */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Perplexity">
-                  <ImageWithFallback src="/perplexity.avif" alt="Perplexity" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="P" />
+                  <img src="/perplexity.avif" alt="Perplexity" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Cursor */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Cursor">
-                  <ImageWithFallback src="/cursor.png" alt="Cursor" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="C" />
+                  <img src="/cursor.png" alt="Cursor" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Shopify */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Shopify">
-                  <ImageWithFallback src="/shopify.webp" alt="Shopify" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="S" />
+                  <img src="/shopify.webp" alt="Shopify" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Make */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Make">
-                  <ImageWithFallback src="/make.jpg" alt="Make" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="M" />
+                  <img src="/make.jpg" alt="Make" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Claude Code */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default" title="Claude Code">
-                  <ImageWithFallback src="/claude.svg" alt="Claude Code" className="w-8 h-8 object-contain opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="C" />
+                  <img src="/claude.svg" alt="Claude Code" className="w-8 h-8 object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Gemini */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Gemini">
-                  <ImageWithFallback src="/gemini.png" alt="Gemini" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="G" />
+                  <img src="/gemini.png" alt="Gemini" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Supabase */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default" title="Supabase">
@@ -489,11 +423,11 @@ const App: React.FC = () => {
                </div>
                {/* NotebookLM */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="NotebookLM">
-                  <ImageWithFallback src="/notebooklm.jpg" alt="NotebookLM" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="NB" />
+                  <img src="/notebooklm.jpg" alt="NotebookLM" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                {/* Lovable */}
                <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-800 transition-all duration-300 group cursor-default overflow-hidden" title="Lovable">
-                  <ImageWithFallback src="/lovable_logo.jpg" alt="Lovable" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="L" />
+                  <img src="/lovable.jpg" alt="Lovable" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
             </div>
           </div>
@@ -535,7 +469,7 @@ const App: React.FC = () => {
           ].map((item, idx) => (
             <a key={idx} href={item.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-2xl bg-neutral-900/30 border border-neutral-800 hover:bg-neutral-900 hover:border-neutral-700 transition-all group">
                <div className="w-10 h-10 rounded-full bg-neutral-800 flex-shrink-0 overflow-hidden border border-neutral-700">
-                  <ImageWithFallback src="/perplexity.avif" alt="Perplexity" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" fallbackText="P" />
+                  <img src="/perplexity.avif" alt="Perplexity" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                </div>
                <div className="flex-grow min-w-0">
                   <div className="flex items-center justify-between mb-1">
@@ -558,7 +492,7 @@ const App: React.FC = () => {
           {/* YouTube Card */}
           <a href="https://youtu.be/P6zaCV4niKk?si=Wzs8riarxwHPP3Ja" target="_blank" rel="noopener noreferrer" className="bg-[#18181b] p-4 rounded-2xl flex items-center gap-4 max-w-md mx-auto hover:bg-[#27272a] transition-colors cursor-pointer group border border-neutral-800 mb-16">
              <div className="w-16 h-16 bg-neutral-700 rounded-lg overflow-hidden flex-shrink-0 relative">
-                <ImageWithFallback src="/cat-stevens-opt.jpg" alt="Album Art" className="w-full h-full object-cover opacity-80" fallbackText="♪" />
+                <img src="/cat-stevens.jpg" alt="Album Art" className="w-full h-full object-cover opacity-80" />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
                    <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
                       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-white ml-0.5">
@@ -583,127 +517,18 @@ const App: React.FC = () => {
           <div className="relative h-48 md:h-96 w-full max-w-3xl mx-auto mb-12">
              {/* Photo 1 */}
              <div className="absolute left-0 md:left-[5%] top-6 md:top-10 w-28 md:w-56 aspect-[3/4] bg-white p-1.5 md:p-2 pb-6 md:pb-8 shadow-2xl transform -rotate-6 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 ease-out z-10 rounded-sm">
-                <ImageWithFallback src="/personal-1.jpg" className="w-full h-full object-cover bg-neutral-100" alt="Personal Photo 1" fallbackBg="bg-neutral-300" />
+                <img src="/personal-1.jpg" className="w-full h-full object-cover bg-neutral-100" alt="Personal Photo 1" />
              </div>
-
+             
              {/* Photo 2 */}
              <div className="absolute left-[30%] md:left-[35%] top-0 w-28 md:w-56 aspect-[3/4] bg-white p-1.5 md:p-2 pb-6 md:pb-8 shadow-2xl transform rotate-2 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 ease-out z-20 rounded-sm">
-                <ImageWithFallback src="/personal-2.jpg" className="w-full h-full object-cover bg-neutral-100" alt="Personal Photo 2" fallbackBg="bg-neutral-300" />
+                <img src="/personal-2.jpg" className="w-full h-full object-cover bg-neutral-100" alt="Personal Photo 2" />
              </div>
 
              {/* Photo 3 */}
              <div className="absolute left-[60%] md:left-[65%] top-4 md:top-8 w-28 md:w-56 aspect-[3/4] bg-white p-1.5 md:p-2 pb-6 md:pb-8 shadow-2xl transform -rotate-3 hover:rotate-0 hover:scale-110 hover:z-50 transition-all duration-500 ease-out z-30 rounded-sm">
-                <ImageWithFallback src="/personal-3.jpeg" className="w-full h-full object-cover bg-neutral-100" alt="Personal Photo 3" fallbackBg="bg-neutral-300" />
+                <img src="/personal-3.jpeg" className="w-full h-full object-cover bg-neutral-100" alt="Personal Photo 3" />
              </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Music & Tech Section */}
-      <section className="mb-32">
-        <SectionHeader title="Music & Technology" description="Where art meets innovation - my favorite song powered by the tools that make it possible" />
-
-        <div className="mt-12 relative">
-          {/* Main Hero Card - Cat Stevens */}
-          <div className="relative w-full max-w-4xl mx-auto bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 rounded-3xl overflow-hidden border border-neutral-700 shadow-2xl">
-            {/* Background Image with Overlay */}
-            <div className="relative h-96 md:h-[500px] overflow-hidden">
-              <ImageWithFallback
-                src="/cat_stevens.jpg"
-                alt="Cat Stevens"
-                className="w-full h-full object-cover opacity-90"
-                fallbackText="CS"
-              />
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
-
-              {/* Content Overlay */}
-              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <div className="max-w-2xl">
-                  <div className="inline-block px-3 py-1 bg-green-500/20 backdrop-blur-sm border border-green-500/30 rounded-full mb-4">
-                    <span className="text-green-400 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
-                      <Music className="w-3 h-3" />
-                      Now Playing
-                    </span>
-                  </div>
-                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
-                    Father and Son
-                  </h3>
-                  <p className="text-xl text-neutral-300 mb-2">Cat Stevens</p>
-                  <p className="text-sm text-neutral-400 mb-6">Tea for the Tillerman • 1970</p>
-
-                  <a
-                    href="https://youtu.be/P6zaCV4niKk?si=Wzs8riarxwHPP3Ja"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-all group"
-                  >
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-red-600">
-                      <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                    </svg>
-                    Watch on YouTube
-                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Tech Stack Logos - Floating Below */}
-          <div className="mt-8 flex justify-center">
-            <div className="inline-flex items-center gap-3 bg-neutral-900/80 backdrop-blur-xl border border-neutral-800 rounded-2xl px-6 py-4 shadow-xl">
-              <span className="text-xs text-neutral-500 uppercase tracking-wider font-semibold mr-2">Built with</span>
-
-              {/* Cursor */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Cursor">
-                <ImageWithFallback src="/cursor_logo.png" alt="Cursor" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="C" />
-              </div>
-
-              {/* GitHub */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="GitHub">
-                <ImageWithFallback src="/Github_logo.png" alt="GitHub" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="GH" />
-              </div>
-
-              {/* Gemini */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Gemini">
-                <ImageWithFallback src="/gemini_logo.png" alt="Gemini" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="G" />
-              </div>
-
-              {/* Notion */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Notion">
-                <ImageWithFallback src="/notion_logo.png" alt="Notion" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="N" />
-              </div>
-
-              {/* Supabase */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Supabase">
-                <ImageWithFallback src="/supabase_logo.png" alt="Supabase" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="S" />
-              </div>
-
-              {/* Shopify */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="Shopify">
-                <ImageWithFallback src="/shopify_logo.webp" alt="Shopify" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1.5" fallbackText="S" />
-              </div>
-
-              {/* NotebookLM */}
-              <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden group" title="NotebookLM">
-                <ImageWithFallback src="/notebooklm.jpg" alt="NotebookLM" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity p-1" fallbackText="NB" />
-              </div>
-            </div>
-          </div>
-
-          {/* Optional: Audio Wave Decoration */}
-          <div className="mt-8 flex justify-center gap-1 opacity-30">
-            {[...Array(20)].map((_, i) => (
-              <div
-                key={i}
-                className="w-1 bg-neutral-700 rounded-full"
-                style={{
-                  height: `${Math.random() * 40 + 10}px`,
-                  animation: `pulse ${Math.random() * 2 + 1}s ease-in-out infinite`,
-                  animationDelay: `${Math.random() * 2}s`
-                }}
-              />
-            ))}
           </div>
         </div>
       </section>
